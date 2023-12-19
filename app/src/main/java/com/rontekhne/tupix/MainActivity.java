@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 // show results in the TextView
                 textResult.setText(resultText);
             } else { // word doesn't exit in the tupix.xml
-                textResult.setText("Palavra não encontrada no dicionário.");
+                textResult.setText(R.string.palavra_n_o_encontrada_no_dicion_rio);
             }
         } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
