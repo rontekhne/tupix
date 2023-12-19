@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Tupix</string>
+    <string name="pesquisar">PESQUISAR</string>
+    <string name="digite_uma_palavra_em_tupi">Digite uma palavra em Tupi</string>
 </resources>

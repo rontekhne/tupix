@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,19 +14,20 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
+        android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:cursorVisible="false"
         android:ems="10"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:gravity="center"
-        android:hint="Digite uma palavra em Tupi"
+        android:hint="@string/digite_uma_palavra_em_tupi"
         android:inputType="text"
         android:minHeight="48dp"
         android:shadowColor="@android:color/transparent"
         android:textColor="@color/colorPrimary"
         android:textColorHighlight="@color/colorPrimaryDark"
-        android:textColorHint="@color/textColor"
+        android:textColorHint="@color/hintColor"
         android:textColorLink="@color/colorPrimaryDark"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,21 +43,22 @@
         android:layout_marginEnd="32dp"
         android:backgroundTint="@color/buttonColor"
         android:onClick="search"
-        android:text="PESQUISAR"
+        android:text="@string/pesquisar"
         android:textColor="@color/textColorPrimary"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInput" />
+        app:layout_constraintTop_toBottomOf="@+id/textInput"
+        tools:ignore="TextContrastCheck" />
 
 
     <TextView
         android:id="@+id/textResult"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:scrollbarSize="0dp"
         android:scrollbars="vertical"
         android:textSize="16sp"
