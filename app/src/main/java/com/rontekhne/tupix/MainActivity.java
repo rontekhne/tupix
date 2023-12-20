@@ -34,4 +34,9 @@ public class MainActivity extends AppCompatActivity {
         // call the search method from TupixDictionary
         TupixDictionary.search(this, textInput.getText(), textResult);
     }
+
+    public void showInfo(View view)
+    {
+        TupixDictionary.showInfo(this);
+    }
 }
