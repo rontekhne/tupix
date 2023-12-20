@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         textInput = findViewById(R.id.textInput);
         textResult = findViewById(R.id.textResult);
-        textResult.setMovementMethod(new android.text.method.ScrollingMovementMethod());
+        // textResult.setMovementMethod(new android.text.method.ScrollingMovementMethod());
     }
 
     public void search(View view) {

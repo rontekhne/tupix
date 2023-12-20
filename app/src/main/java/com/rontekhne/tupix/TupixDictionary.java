@@ -27,6 +27,8 @@ import java.io.InputStream;
 
 public class TupixDictionary {
 
+    private static TypingAnimationHelper typingAnimationHelper;
+
     public static void search(Context context, Editable inputText, TextView resultTextView) {
         String searchWord = inputText.toString().toLowerCase();
 
@@ -109,12 +111,21 @@ public class TupixDictionary {
                 eventType = parser.next();
             }
 
+
+            // animate text view
             if (resultText.length() > 0) {
-                // show results in the TextView
-                resultTextView.setText(resultText);
-            } else { // word doesn't exist in the tupix.xml
-                resultTextView.setText(R.string.word_not_found);
+                if (typingAnimationHelper != null) {
+                    typingAnimationHelper.stopTypingAnimation();
+                }
+
+                typingAnimationHelper = new TypingAnimationHelper(resultTextView, resultText);
+                typingAnimationHelper.startTypingAnimation();
+            } else {
+                if (typingAnimationHelper != null) {
+                    typingAnimationHelper.stopTypingAnimation();
+                }resultTextView.setText(R.string.word_not_found);
             }
+
         } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
             Toast.makeText(context, "Erro ao processar o arquivo XML.", Toast.LENGTH_SHORT).show();

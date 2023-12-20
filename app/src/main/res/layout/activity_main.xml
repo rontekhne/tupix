@@ -64,22 +64,30 @@
         app:layout_constraintTop_toBottomOf="@+id/textInput"
         tools:ignore="TextContrastCheck" />
 
-    <TextView
-        android:id="@+id/textResult"
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@color/primaryBackground"
+        android:layout_marginBottom="16dp"
         android:scrollbarSize="0dp"
-        android:scrollbars="vertical"
-        android:textColor="@color/primaryText"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchButton" />
+        app:layout_constraintTop_toBottomOf="@+id/searchButton">
+
+        <TextView
+            android:id="@+id/textResult"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/primaryText"
+            android:textColorHighlight="@color/primaryText"
+            android:textColorHint="@color/primaryText"
+            android:textColorLink="@color/primaryText"
+            tools:ignore="ScrollViewSize" />
+    </ScrollView>
 
     <TextView
         android:id="@+id/textView"
@@ -106,6 +114,7 @@
         android:onClick="showInfo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_info_details" />
+        app:srcCompat="@android:drawable/ic_menu_info_details"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck,ImageContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
