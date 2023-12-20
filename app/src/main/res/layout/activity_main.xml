@@ -21,7 +21,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:gravity="center"
-        android:hint="@string/digite_uma_palavra_em_tupi"
+        android:hint="@string/input"
         android:inputType="text"
         android:minHeight="48dp"
         android:shadowColor="@android:color/transparent"
@@ -32,7 +32,8 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/searchButton"
@@ -43,7 +44,7 @@
         android:layout_marginEnd="32dp"
         android:backgroundTint="@color/buttonColor"
         android:onClick="search"
-        android:text="@string/pesquisar"
+        android:text="@string/search"
         android:textColor="@color/textColorPrimary"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
