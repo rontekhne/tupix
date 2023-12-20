@@ -2,4 +2,5 @@
     <string name="app_name">Tupix</string>
     <string name="search">PESQUISAR</string>
     <string name="input">Digite uma palavra em tupi</string>
+    <string name="word_not_found">:( Palavra não encontrada no dicionário!</string>
 </resources>
