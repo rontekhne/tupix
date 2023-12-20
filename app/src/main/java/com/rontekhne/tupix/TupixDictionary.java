@@ -136,7 +136,7 @@ public class TupixDictionary {
                 "\nAviso:\n" +
                 "Todas as fontes são citadas nos verbetes. Todos os direitos intelectuais são reservados ao Professor Eduardo de Almeida Navarro, cujo currículo Lattes se encontra em http://lattes.cnpq.br/4076981549961926\n\n" +
                 "Privacidade:\n" +
-                "ESTE APP NÃO POSSUI ACESSO À INTERNET, NÃO COMERCIALIZA, NÃO EXIGE LOGIN E NÃO COLETA DADOS USUÁRIOS!\n\n" +
+                "ESTE APP NÃO POSSUI ACESSO À INTERNET, NÃO COMERCIALIZA, NÃO EXIGE LOGIN E NÃO COLETA DADOS DOS USUÁRIOS!\n\n" +
                 "\nCriado e mantido por RonTekhne.\n" +
                 "https://rontekhne.github.io";
         dialog.setMessage(message);
