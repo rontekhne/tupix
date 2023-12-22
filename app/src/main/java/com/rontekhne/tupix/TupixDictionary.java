@@ -133,9 +133,7 @@ public class TupixDictionary {
             e.printStackTrace();
             Toast.makeText(
                     context,
-                    "Erro ao processar o arquivo XML. " +
-                            "Desculpe o incoveniente! " +
-                            "Envie um e-mail para rontekhne@gmail.com reportando o problema.",
+                    "Erro ao processar o arquivo XML. ",
                     Toast.LENGTH_LONG).show();
         }
 
