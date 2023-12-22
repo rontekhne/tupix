@@ -3,12 +3,14 @@ package com.rontekhne.tupix;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.util.Xml;
 import android.view.Gravity;
 import android.widget.Button;
@@ -21,6 +23,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,6 +32,8 @@ public class TupixDictionary {
 
     private static TypingAnimationHelper typingAnimationHelper;
 
+
+    // search a word in tupix.xml and return a textview
     public static void search(Context context, Editable inputText, TextView resultTextView) {
         String searchWord = inputText.toString().toLowerCase();
 
@@ -43,6 +48,7 @@ public class TupixDictionary {
 
             // Parse the XML
             int eventType = parser.getEventType();
+
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_TAG) {
                     String tagName = parser.getName();
@@ -51,7 +57,7 @@ public class TupixDictionary {
                         if (word.equalsIgnoreCase(searchWord)) {
                             // word found, get info
                             String clazz = "";
-                            String meaning = "";
+                            SpannableStringBuilder meaning = null;
                             String source = "";
 
                             while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -62,7 +68,7 @@ public class TupixDictionary {
                                             clazz = parser.nextText().trim();
                                             break;
                                         case "meaning":
-                                            meaning = parser.nextText().trim();
+                                            meaning = parseMeaningWithItalicTp(parser);
                                             break;
                                         case "source":
                                             source = parser.nextText().trim();
@@ -79,29 +85,26 @@ public class TupixDictionary {
 
                             // format the lines
                             String fclazz = "\n\n" + clazz;
-                            String fmeaning = "\n\n" + meaning;
                             String fsource = "\n\nFontes:\n" + source + "\n\n\n";
 
-                            String resultEntry = word + fclazz + fmeaning + fsource;
-
                             // apply style to the lines
-                            SpannableString formattedResultEntry = new SpannableString(resultEntry);
-                            formattedResultEntry.setSpan(new RelativeSizeSpan(1.8f), 0, word.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            SpannableStringBuilder formattedResultEntry = new SpannableStringBuilder(word);
+                            formattedResultEntry.setSpan(new RelativeSizeSpan(2.2f), 0, word.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                             formattedResultEntry.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, word.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                             int classStart = word.length();
                             int classEnd = classStart + fclazz.length();
-                            formattedResultEntry.setSpan(new RelativeSizeSpan(1.2f), classStart, classEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            formattedResultEntry.append(fclazz);
+                            formattedResultEntry.setSpan(new RelativeSizeSpan(1.4f), classStart, classEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                             formattedResultEntry.setSpan(new StyleSpan(android.graphics.Typeface.ITALIC), classStart, classEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-                            //noinspection UnnecessaryLocalVariable
-                            int meaningStart = classEnd;
-                            int meaningEnd = meaningStart + fmeaning.length();
-                            formattedResultEntry.setSpan(new RelativeSizeSpan(1.2f), meaningStart, meaningEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            if (meaning != null) {
+                                formattedResultEntry.append(meaning);
+                            }
 
-                            //noinspection UnnecessaryLocalVariable
-                            int sourceStart = meaningEnd;
+                            int sourceStart = formattedResultEntry.length();
                             int sourceEnd = sourceStart + fsource.length();
+                            formattedResultEntry.append(fsource);
                             formattedResultEntry.setSpan(new RelativeSizeSpan(0.8f), sourceStart, sourceEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                             resultText.append(formattedResultEntry);
@@ -128,11 +131,53 @@ public class TupixDictionary {
 
         } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
-            Toast.makeText(context, "Erro ao processar o arquivo XML.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(
+                    context,
+                    "Erro ao processar o arquivo XML. " +
+                            "Desculpe o incoveniente! " +
+                            "Envie um e-mail para rontekhne@gmail.com reportando o problema.",
+                    Toast.LENGTH_LONG).show();
         }
 
         // clean the input
         inputText.clear();
+    }
+
+    // parse the meaning tag to appply italics and bold on <tp> tag contents
+    private static SpannableStringBuilder parseMeaningWithItalicTp(XmlPullParser parser) throws IOException, XmlPullParserException {
+        SpannableStringBuilder meaningBuilder = new SpannableStringBuilder();
+
+        int eventType = parser.next();
+        //boolean isFirstText = true;  // Flag to track the start of <meaning>
+
+        meaningBuilder.append("\n\n"); // add newlines in the beginning of the meaning
+
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            if (eventType == XmlPullParser.TEXT) {
+                meaningBuilder.append(parser.getText());
+            } else if (eventType == XmlPullParser.START_TAG) {
+                String innerTagName = parser.getName();
+                switch (innerTagName) {
+                    case "tp":
+                        String tpContent = parser.nextText().trim();
+                        // apply italics and bold only inside the content of <tp>
+                        SpannableString italicAndBoldSpan = new SpannableString(tpContent);
+                        italicAndBoldSpan.setSpan(new StyleSpan(Typeface.ITALIC), 0, tpContent.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        italicAndBoldSpan.setSpan(new StyleSpan(Typeface.BOLD), 0, tpContent.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        meaningBuilder.append(italicAndBoldSpan);
+                        break;
+                }
+
+            } else if (eventType == XmlPullParser.END_TAG && "meaning".equals(parser.getName())) {
+                // end of tag <meaning>, get out of loop
+                break;
+            }
+            eventType = parser.next();
+        }
+
+        // apply 1.5f font size to meaning
+        meaningBuilder.setSpan(new RelativeSizeSpan(1.4f), 0, meaningBuilder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return meaningBuilder;
     }
 
     public static void showInfo(Context context)
@@ -143,7 +188,7 @@ public class TupixDictionary {
         // set title and message
         dialog.setTitle("Tupix");
         String message = "\nDicionário de Tupi Antigo - Português\n" +
-                "\nA língua tupi, ou tupi antigo, foi a língua falada pelos povos tupis e por grande parte dos colonizadores que povoavam o litoral do Brasil nos séculos XVI e XVII. \"É a língua indígena clássica do Brasil e a que teve mais importância na construção espiritual e cultural do país.\n" +
+                "\nA língua tupi, ou tupi antigo, foi a língua falada pelos povos tupis e por grande parte dos colonizadores que povoavam o litoral do Brasil nos séculos XVI e XVII. É a língua indígena clássica do Brasil e a que teve mais importância na construção espiritual e cultural do país.\n" +
                 "\nAviso:\n" +
                 "Todas as fontes são citadas nos verbetes. Todos os direitos intelectuais são reservados ao Professor Eduardo de Almeida Navarro, cujo currículo Lattes se encontra em http://lattes.cnpq.br/4076981549961926\n\n" +
                 "Privacidade:\n" +
