@@ -3,6 +3,7 @@ package com.rontekhne.tupix;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.SpannableStringBuilder;
+import android.util.Log;
 import android.widget.TextView;
 
 /**
@@ -12,10 +13,10 @@ public class TypingAnimationHelper {
 
     private static final int DELAY_MILLIS = 1;
 
-    private TextView textView;
-    private SpannableStringBuilder targetText;
+    final private TextView textView;
+    final private SpannableStringBuilder targetText;
     private int currentIndex;
-    private Handler handler;
+    final private Handler handler;
 
     public TypingAnimationHelper(TextView textView, SpannableStringBuilder targetText) {
         this.textView = textView;
@@ -30,8 +31,8 @@ public class TypingAnimationHelper {
         handler.postDelayed(typingRunnable, DELAY_MILLIS);
     }
 
-    // letter by letter animation
-    private Runnable typingRunnable = new Runnable() {
+    // letter by letter animation: slower
+    final private Runnable typingRunnable = new Runnable() {
         @Override
         public void run() {
             if (currentIndex <= targetText.length()) {
@@ -41,12 +42,13 @@ public class TypingAnimationHelper {
                 handler.postDelayed(this, DELAY_MILLIS);
             } else {
                 // animation is finished
+                Log.d("DEBUG", "Animation is finished");
             }
         }
     };
 
-    /* word by word animation: faster
-    private Runnable typingRunnable = new Runnable() {
+    // word by word animation: faster
+    /* private Runnable typingRunnable = new Runnable() {
         @Override
         public void run() {
             if (currentIndex <= targetText.length()) {

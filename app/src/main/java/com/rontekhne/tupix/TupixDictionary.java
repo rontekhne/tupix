@@ -10,7 +10,6 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.util.Xml;
 import android.view.Gravity;
 import android.widget.Button;
