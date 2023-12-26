@@ -67,7 +67,7 @@ public class TupixDictionary {
                                             clazz = parser.nextText().trim();
                                             break;
                                         case "meaning":
-                                            meaning = parseMeaningWithItalicTp(parser);
+                                            meaning = parseSubTag(parser);
                                             break;
                                         case "source":
                                             source = parser.nextText().trim();
@@ -141,7 +141,7 @@ public class TupixDictionary {
     }
 
     // parse the meaning tag to appply italics and bold on <tp> tag contents
-    private static SpannableStringBuilder parseMeaningWithItalicTp(XmlPullParser parser) throws IOException, XmlPullParserException {
+    private static SpannableStringBuilder parseSubTag(XmlPullParser parser) throws IOException, XmlPullParserException {
         SpannableStringBuilder meaningBuilder = new SpannableStringBuilder();
 
         int eventType = parser.next();
