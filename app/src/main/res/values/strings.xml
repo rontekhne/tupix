@@ -3,4 +3,5 @@
     <string name="search">PESQUISAR</string>
     <string name="input">Digite uma palavra em tupi</string>
     <string name="word_not_found">:( Palavra não encontrada no dicionário!</string>
+    <string name="dicionario_tupi_antigo">DICIONÁRIO TUPI ANTIGO</string>
 </resources>
