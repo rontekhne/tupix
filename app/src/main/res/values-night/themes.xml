@@ -3,8 +3,12 @@
     <style name="Theme.Tupix" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:colorPrimary">@color/colorPrimary</item>
-        <item name="android:textColorPrimary">@color/primaryText</item>
-        <item name="android:background">@color/primaryBackground</item>
-        <item name="android:colorAccent">@color/dialogBackground</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+    </style>
+
+    <style name="CustomAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:background">@color/colorBackground</item>
     </style>
 </resources>

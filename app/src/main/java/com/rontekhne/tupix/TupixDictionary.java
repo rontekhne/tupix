@@ -180,7 +180,9 @@ public class TupixDictionary {
     public static void showInfo(Context context)
     {
         // Instantiate AlertDialog
-        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        //AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context, R.style.CustomAlertDialogStyle);
 
         // set title and message
         dialog.setTitle("Tupix");
@@ -216,12 +218,12 @@ public class TupixDictionary {
 
             // add the TextView to the layout
             TextView text = new TextView(context);
-            text.setBackgroundResource(R.color.transparentBackground);
+            text.setBackgroundResource(R.color.colorTransparent);
             text.setTextColor(0xFF66894F);
             text.setText("Obrigado por usar o dicionário.\nAvalie-nos na Play Store!");
             text.setPadding(0, 0, 0, 0);
 
-            toastLayout.setBackgroundResource(R.color.transparentBackground);
+            toastLayout.setBackgroundResource(R.color.colorTransparent);
             toastLayout.addView(text);
             toastLayout.setPadding(0, 5, 20, 5);
 

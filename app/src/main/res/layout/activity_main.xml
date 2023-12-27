@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryBackground"
     tools:context=".MainActivity">
 
 
@@ -12,12 +11,23 @@
         android:id="@+id/toolbar"
         android:layout_width="411dp"
         android:layout_height="56dp"
-        android:background="@color/dialogBackground"
+        android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:srcCompat="@drawable/greenforest" />
 
     <TextView
         android:id="@+id/textView"
@@ -25,9 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:background="@color/dialogBackground"
-        android:text= "@string/app_name"
-        android:textColor="@color/secondaryText"
+        android:text="@string/app_name"
+        android:textColor="@color/colorVariant"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent"
@@ -40,12 +49,9 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
-        android:backgroundTint="@color/buttonColor"
+        android:backgroundTint="@color/colorPrimary"
         android:text="@string/dicionario_tupi_antigo"
-        android:textColor="@color/secondaryText"
-        android:textColorHighlight="@color/buttonColor"
-        android:textColorHint="@color/buttonColor"
-        android:textColorLink="@color/buttonColor"
+        android:textColor="@color/colorVariant"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
